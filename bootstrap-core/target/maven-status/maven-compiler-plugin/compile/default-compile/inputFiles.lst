@@ -24,6 +24,7 @@
 /Users/zhaozhenzuo/Documents/git/monitEye/bootstrap-core/src/main/java/com/z/monit/bootstrap/core/context/AgentContext.java
 /Users/zhaozhenzuo/Documents/git/monitEye/bootstrap-core/src/main/java/com/z/monit/bootstrap/core/InvokeOperImpl.java
 /Users/zhaozhenzuo/Documents/git/monitEye/bootstrap-core/src/main/java/com/z/monit/bootstrap/core/intercept/Interceptor.java
+/Users/zhaozhenzuo/Documents/git/monitEye/bootstrap-core/src/main/java/com/z/monit/bootstrap/core/intercept/DefaultInterceptor.java
 /Users/zhaozhenzuo/Documents/git/monitEye/bootstrap-core/src/main/java/com/z/monit/bootstrap/core/util/ClassNameUtil.java
 /Users/zhaozhenzuo/Documents/git/monitEye/bootstrap-core/src/main/java/com/z/monit/bootstrap/core/InvokeParam.java
 /Users/zhaozhenzuo/Documents/git/monitEye/bootstrap-core/src/main/java/com/z/monit/bootstrap/core/classload/ClassInjectLoader.java

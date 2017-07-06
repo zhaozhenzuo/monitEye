@@ -15,6 +15,7 @@ com/z/monit/bootstrap/core/AgentInfo.class
 com/z/monit/bootstrap/core/classload/ClassInjectLoader.class
 com/z/monit/bootstrap/core/context/SpanEvent.class
 com/z/monit/bootstrap/core/InvokeParam.class
+com/z/monit/bootstrap/core/intercept/DefaultInterceptor.class
 com/z/monit/bootstrap/core/InvokeInfo.class
 com/z/monit/bootstrap/core/Agent.class
 com/z/monit/bootstrap/core/context/Span.class

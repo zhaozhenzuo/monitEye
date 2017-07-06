@@ -2,9 +2,7 @@ package org.dubbo.plugin;
 
 import java.io.IOException;
 
-import com.z.monit.bootstrap.core.intercept.register.InterceptorRegister;
 import com.z.monit.bootstrap.core.util.InstrumentCodeUtil;
-import com.z.monit.bootstrap.core.util.InterceptorGenerateCodeUtil;
 import com.z.monit.bootstrap.dubbo.interceptor.DubboProvideInterceptor;
 
 import javassist.CannotCompileException;
@@ -27,9 +25,9 @@ public class JavassitTest {
 
 		Class claz = ctClass.toClass();
 
-		A a = (A) claz.newInstance();
-
-		a.show(object, objArgs);
+//		A a = (A) claz.newInstance();
+//
+//		a.show(object, objArgs);
 
 	}
 

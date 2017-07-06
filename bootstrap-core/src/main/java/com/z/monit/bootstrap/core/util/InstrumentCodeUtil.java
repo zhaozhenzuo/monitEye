@@ -7,10 +7,11 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
+import javassist.LoaderClassPath;
 import javassist.NotFoundException;
 
 public class InstrumentCodeUtil {
-
+	
 	/**
 	 * 在对应类对应方法前面加入interceptor的before方法
 	 * 
@@ -31,6 +32,7 @@ public class InstrumentCodeUtil {
 		 * 2.生成新方法，会调用原方法，并在调用前加入interceptor before的调用
 		 */
 		ClassPool classPool = ClassPool.getDefault();
+		classPool.appendClassPath(new LoaderClassPath(Thread.currentThread().getContextClassLoader()));
 		CtClass ctClass = null;
 		try {
 			ctClass = classPool.get(className);
@@ -75,7 +77,10 @@ public class InstrumentCodeUtil {
 	}
 
 	public static CtClass addBefore(String className, String method, String codeContent) {
+		System.out.println(">addBefore");
 		ClassPool classPool = ClassPool.getDefault();
+		classPool.appendClassPath(new LoaderClassPath(Thread.currentThread().getContextClassLoader()));
+		
 		CtClass ctClass = null;
 		try {
 			ctClass = classPool.get(className);
