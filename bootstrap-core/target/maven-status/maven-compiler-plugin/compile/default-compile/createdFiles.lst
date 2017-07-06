@@ -1,4 +1,6 @@
 com/z/monit/bootstrap/core/intercept/AroundInterceptor.class
+com/z/monit/bootstrap/core/InvokeOperFactory.class
+com/z/monit/bootstrap/core/util/InterceptorGenerateCodeUtil.class
 com/z/monit/bootstrap/core/instrument/InstrumentClass.class
 com/z/monit/bootstrap/core/instrument/InstrumentMethod.class
 com/z/monit/bootstrap/core/instrument/MonitPluginConfig.class
@@ -7,10 +9,13 @@ com/z/monit/bootstrap/core/intercept/Interceptor.class
 com/z/monit/bootstrap/core/classload/MonitClassLoader.class
 com/z/monit/bootstrap/core/instrument/MonitPlugin.class
 com/z/monit/bootstrap/core/util/ClassNameUtil.class
+com/z/monit/bootstrap/core/util/InstrumentCodeUtil.class
 com/z/monit/bootstrap/core/instrument/InstrumentException.class
 com/z/monit/bootstrap/core/AgentInfo.class
 com/z/monit/bootstrap/core/classload/ClassInjectLoader.class
 com/z/monit/bootstrap/core/context/SpanEvent.class
+com/z/monit/bootstrap/core/InvokeParam.class
+com/z/monit/bootstrap/core/InvokeInfo.class
 com/z/monit/bootstrap/core/Agent.class
 com/z/monit/bootstrap/core/context/Span.class
 com/z/monit/bootstrap/core/context/TraceContext.class
@@ -18,8 +23,13 @@ com/z/monit/bootstrap/core/context/SpanRecordEvent.class
 com/z/monit/bootstrap/core/agent/AgentParam.class
 com/z/monit/bootstrap/core/classload/PluginLoaderClassLoader.class
 com/z/monit/bootstrap/core/agent/DefaultAgentParam.class
+com/z/monit/bootstrap/core/CodeInfo.class
 com/z/monit/bootstrap/core/instrument/ClassFileTransformDispatcher.class
 com/z/monit/bootstrap/core/instrument/PluginInstrumentService.class
+com/z/monit/bootstrap/core/InvokeOperImpl.class
 com/z/monit/bootstrap/core/classload/PluginLoaderUtil.class
 com/z/monit/bootstrap/core/context/AgentContext.class
+com/z/monit/bootstrap/core/InvokeOperInf.class
+com/z/monit/bootstrap/core/InvokeResult.class
+com/z/monit/bootstrap/core/intercept/register/InterceptorRegister.class
 com/z/monit/bootstrap/core/instrument/TransformCallback.class
