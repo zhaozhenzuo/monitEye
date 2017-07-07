@@ -22,7 +22,7 @@ public class PluginLoaderUtil {
 	}
 
 	public static <T> List<T> load(Class<T> serviceType, URL[] urls) {
-		URLClassLoader classLoader = createPluginClassLoader(urls, ClassLoader.getSystemClassLoader());
+		URLClassLoader classLoader = createPluginClassLoader(urls, Thread.currentThread().getContextClassLoader());
 		return load(serviceType, classLoader);
 	}
 

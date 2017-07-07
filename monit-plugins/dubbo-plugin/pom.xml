@@ -25,6 +25,21 @@
 			<groupId>com.z.monit</groupId>
 			<artifactId>bootstrap-core</artifactId>
 			<version>1.0</version>
+			 <scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.z.monit</groupId>
+			<artifactId>monit-codegen</artifactId>
+			<version>1.0</version>
+			 <scope>provided</scope>
+		</dependency>
+		
+		 <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
 	</dependencies>
 </project>

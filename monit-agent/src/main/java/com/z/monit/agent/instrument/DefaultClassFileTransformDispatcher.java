@@ -6,6 +6,7 @@ import java.security.ProtectionDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.z.monit.bootstrap.core.classload.ClassLoaderUtil;
 import com.z.monit.bootstrap.core.instrument.ClassFileTransformDispatcher;
 import com.z.monit.bootstrap.core.instrument.InstrumentException;
 import com.z.monit.bootstrap.core.instrument.PluginInstrumentService;
@@ -44,22 +45,32 @@ public class DefaultClassFileTransformDispatcher implements ClassFileTransformDi
 	 */
 	private byte[] dispatchTransform(ClassLoader loader, String className, Class<?> classBeingRedefined,
 			ProtectionDomain protectionDomain, byte[] classfileBuffer) {
-		
-		String classNameTransfer=className.replace("/", ".");
-		
-		TransformCallback transformCallback = transformCallbackRegister
-				.geTransformCallbackByClassNameInjected(classNameTransfer);
-		
-		if(transformCallback == null){
+
+		String classNameTransfer = className.replace("/", ".");
+
+		if (classNameTransfer.indexOf("com.z.monit") >= 0) {
 			return null;
 		}
-		
+
+		TransformCallback transformCallback = transformCallbackRegister
+				.geTransformCallbackByClassNameInjected(classNameTransfer);
+
+		if (transformCallback == null) {
+			return null;
+		}
+
 		byte[] res = null;
+		final Thread thread = Thread.currentThread();
+		final ClassLoader before = thread.getContextClassLoader();
+		
 		try {
+			thread.setContextClassLoader(ClassLoaderUtil.monitClassLoader);
 			res = transformCallback.doInTransform(instrumentService, loader, classNameTransfer, classBeingRedefined,
 					protectionDomain, classfileBuffer);
 		} catch (InstrumentException e) {
 			logger.error(">>doInTransform err,className:" + className, e);
+		}finally {
+			Thread.currentThread().setContextClassLoader(before);
 		}
 		return res;
 	}

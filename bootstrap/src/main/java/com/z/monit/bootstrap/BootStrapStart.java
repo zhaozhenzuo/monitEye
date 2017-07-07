@@ -40,7 +40,11 @@ public class BootStrapStart {
 		 */
 		Map<String, Object> configParamMap = new HashMap<String, Object>();
 		configParamMap.put("bootstrapCoreFullUrl", classPathResolver.getBootstrapCoreFullUrl());
+		configParamMap.put("bootstrapDir", classPathResolver.getBootstrapDir());
+		configParamMap.put("bootstrapCoreDir", classPathResolver.getBootstrapCoreDir());
+		configParamMap.put("pluginDir", classPathResolver.getPluginDir());
 		configParamMap.put("pluginUrls", classPathResolver.getPluginUrls());
+		configParamMap.put("defaultLibDir", classPathResolver.getDefaultLibDir());
 		
 		AgentParam agentParam = new DefaultAgentParam(instrumentation);
 		DefaultAgentParam.configMap=configParamMap;

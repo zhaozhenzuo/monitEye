@@ -18,6 +18,7 @@ import com.z.monit.agent.instrument.JavaSsistClassPoolServiceImpl;
 import com.z.monit.bootstrap.core.Agent;
 import com.z.monit.bootstrap.core.AgentInfo;
 import com.z.monit.bootstrap.core.agent.AgentParam;
+import com.z.monit.bootstrap.core.classload.ClassLoaderUtil;
 import com.z.monit.bootstrap.core.classload.PluginLoaderUtil;
 import com.z.monit.bootstrap.core.context.AgentContext;
 import com.z.monit.bootstrap.core.instrument.ClassFileTransformDispatcher;
@@ -102,7 +103,9 @@ public class DefaultAgent implements Agent {
 		 * 4.将织入分发器加入到instrument中,之后webAppClassLoader加载应用类时会调用织入分发器逻辑
 		 */
 		agentParam.getInstrument().addTransformer(classFileTransformDispatcher);
-
+		
+		ClassLoaderUtil.monitClassLoader=Thread.currentThread().getContextClassLoader();
+		
 		logger.info(">>end init agent");
 
 	}
@@ -176,6 +179,11 @@ public class DefaultAgent implements Agent {
 				transformCallbackRegister.registerTransform(entry.getKey(), entry.getValue());
 			}
 		}
+
+		/**
+		 * 3.设置monitClassLoader到codeGen中
+		 */
+//		InstrumentCodeUtil.monitClassLoader = Thread.currentThread().getContextClassLoader();
 
 		return true;
 	}

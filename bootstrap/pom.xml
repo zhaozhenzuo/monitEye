@@ -22,11 +22,6 @@
 			<version>1.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.javassist</groupId>
-			<artifactId>javassist</artifactId>
-		</dependency>
-
 		<!-- Logging depedencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

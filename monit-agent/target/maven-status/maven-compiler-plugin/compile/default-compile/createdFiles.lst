@@ -1,13 +1,11 @@
+com/z/monit/agent/instrument/DefaultTransformCallbackRegister.class
 com/z/monit/agent/instrument/DefaultInstrumentMethodImpl.class
+com/z/monit/agent/DefaultAgent.class
+com/z/monit/agent/instrument/DefaultClassFileTransformDispatcher.class
 com/z/monit/agent/instrument/ClassPoolService.class
 com/z/monit/agent/instrument/DefaultInstrumentClass.class
 com/z/monit/agent/util/JavaAssistUtils.class
 com/z/monit/agent/context/DefaultAgentContext.class
-com/z/monit/agent/instrument/PluginClassInjectLoader.class
-com/z/monit/agent/instrument/DefaultTransformCallbackRegister.class
-com/z/monit/agent/DefaultAgent.class
-com/z/monit/agent/instrument/DefaultClassFileTransformDispatcher.class
-com/z/monit/agent/instrument/InterceptorRegister.class
-com/z/monit/agent/instrument/DefaultInterceptorRegisterImpl.class
 com/z/monit/agent/instrument/DefaultPluginInstrumentServiceImpl.class
+com/z/monit/agent/instrument/PluginClassInjectLoader.class
 com/z/monit/agent/instrument/JavaSsistClassPoolServiceImpl.class
