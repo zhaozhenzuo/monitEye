@@ -7,6 +7,8 @@ package com.z.monit.bootstrap.core.intercept;
  *
  */
 public interface Interceptor {
+	
+	void before();
 
 	void before(Object target, Object[] args);
 

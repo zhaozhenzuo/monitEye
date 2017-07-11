@@ -29,7 +29,6 @@ public class DefaultClassFileTransformDispatcher implements ClassFileTransformDi
 
 	public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
 			ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-		logger.info(">>dispatch className:" + className);
 		return dispatchTransform(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
 	}
 

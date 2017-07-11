@@ -1,3 +1,4 @@
-com/z/monit/codegen/App.class
 com/z/monit/codegen/javassit/InterceptorGenerateCodeUtil.class
+com/z/monit/codegen/App.class
 com/z/monit/codegen/javassit/InstrumentCodeUtil.class
+com/z/monit/codegen/javassit/TestInvoker.class

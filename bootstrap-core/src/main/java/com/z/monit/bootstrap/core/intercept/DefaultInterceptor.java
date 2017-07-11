@@ -12,4 +12,9 @@ public class DefaultInterceptor implements Interceptor{
 		
 	}
 
+	public void before() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

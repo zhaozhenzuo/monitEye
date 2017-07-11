@@ -1,2 +1,3 @@
+/Users/zhaozhenzuo/Documents/git/monitEye/monit-plugins/dubbo-plugin/src/main/java/com/z/monit/bootstrap/dubbo/constants/DubboConstants.java
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-plugins/dubbo-plugin/src/main/java/com/z/monit/bootstrap/dubbo/interceptor/DubboProvideInterceptor.java
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-plugins/dubbo-plugin/src/main/java/com/z/monit/bootstrap/dubbo/plugin/DubboPlugin.java

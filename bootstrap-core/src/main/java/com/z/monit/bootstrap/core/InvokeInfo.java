@@ -16,45 +16,45 @@ public class InvokeInfo implements Serializable {
 	/**
 	 * 调用链唯一id
 	 */
-	private String invokeUniqueKey;
+	private String transactionId;
 
 	/**
 	 * 当前结点父结点<br/>
 	 */
-	private String parentId;
+	private String parentSpanId;
 
 	/**
-	 * 当前id
+	 * 当前span id
 	 */
-	private String currentId;
+	private String currentSpanId;
 
 	/**
 	 * 当前调用id序列号
 	 */
 	private AtomicInteger currentInvokeSeq;
-	
-	public String getInvokeUniqueKey() {
-		return invokeUniqueKey;
+
+	public String getTransactionId() {
+		return transactionId;
 	}
 
-	public void setInvokeUniqueKey(String invokeUniqueKey) {
-		this.invokeUniqueKey = invokeUniqueKey;
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
 	}
 
-	public String getParentId() {
-		return parentId;
+	public String getParentSpanId() {
+		return parentSpanId;
 	}
 
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
+	public void setParentSpanId(String parentSpanId) {
+		this.parentSpanId = parentSpanId;
 	}
 
-	public String getCurrentId() {
-		return currentId;
+	public String getCurrentSpanId() {
+		return currentSpanId;
 	}
 
-	public void setCurrentId(String currentId) {
-		this.currentId = currentId;
+	public void setCurrentSpanId(String currentSpanId) {
+		this.currentSpanId = currentSpanId;
 	}
 
 	public AtomicInteger getCurrentInvokeSeq() {

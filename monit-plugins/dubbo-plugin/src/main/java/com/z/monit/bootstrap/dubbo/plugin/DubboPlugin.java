@@ -5,6 +5,7 @@ import java.security.ProtectionDomain;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.dubbo.rpc.Invocation;
 import com.z.monit.bootstrap.core.instrument.InstrumentException;
 import com.z.monit.bootstrap.core.instrument.MonitPlugin;
 import com.z.monit.bootstrap.core.instrument.PluginInstrumentService;
@@ -20,7 +21,8 @@ public class DubboPlugin implements MonitPlugin {
 	public Map<String, TransformCallback> addTransformCallBack() {
 		Map<String, TransformCallback> transformCallBackMap = new HashMap<String, TransformCallback>();
 
-		String className="test.monit.test.A";
+		final String providerClassName="com.alibaba.dubbo.rpc.proxy.AbstractProxyInvoker";
+//		final String providerClassName="test.monit.test.A";
 		
 		/**
 		 * 注册服务提供方织入逻辑
@@ -29,10 +31,14 @@ public class DubboPlugin implements MonitPlugin {
 			public byte[] doInTransform(PluginInstrumentService instrumentService, ClassLoader loader, String className,
 					Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer)
 							throws InstrumentException {
-				
-				
-				CtClass ctClass=InstrumentCodeUtil.addBeforeInterceptor(className, "show", new DubboProvideInterceptor());
-				
+
+				CtClass ctClass = InstrumentCodeUtil.addBeforeInterceptor(
+						providerClassName, new DubboProvideInterceptor(), "invoke",
+						com.alibaba.dubbo.rpc.Invocation.class);
+
+				// "com.alibaba.dubbo.rpc.proxy.AbstractProxyInvoker", "invoke",
+				// new DubboProvideInterceptor());
+
 				try {
 					return ctClass.toBytecode();
 				} catch (IOException e) {
@@ -41,14 +47,17 @@ public class DubboPlugin implements MonitPlugin {
 				} catch (CannotCompileException e) {
 					e.printStackTrace();
 				}
-				
+
 				return null;
 			}
 		};
-		
-		transformCallBackMap.put(className, providerTransformCallBack);
-		
-//		transformCallBackMap.put("com.alibaba.dubbo.rpc.proxy.AbstractProxyInvoker", providerTransformCallBack);
+
+		// com.alibaba.dubbo.rpc.cluster.support.AbstractClusterInvoker
+
+		transformCallBackMap.put(providerClassName, providerTransformCallBack);
+
+		// transformCallBackMap.put("com.alibaba.dubbo.rpc.proxy.AbstractProxyInvoker",
+		// providerTransformCallBack);
 
 		/**
 		 * 注册服务消费方织入逻辑<br/>

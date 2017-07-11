@@ -39,9 +39,9 @@ public class InvokeOperImpl implements InvokeOperInf {
 		}
 
 		InvokeInfo invokeInfoNew = new InvokeInfo();
-		invokeInfoNew.setInvokeUniqueKey(invokeUniqueKey);
-		invokeInfoNew.setParentId(parentId);
-		invokeInfoNew.setCurrentId(currentId);
+		invokeInfoNew.setTransactionId(invokeUniqueKey);
+		invokeInfoNew.setParentSpanId(parentId);
+		invokeInfoNew.setCurrentSpanId(currentId);
 
 		AtomicInteger currentInvokeSeq = new AtomicInteger(0);
 		invokeInfoNew.setCurrentInvokeSeq(currentInvokeSeq);
@@ -60,10 +60,10 @@ public class InvokeOperImpl implements InvokeOperInf {
 		InvokeParam invokeParam = new InvokeParam();
 
 		// 调用链id
-		invokeParam.setInvokeUniqueKey(invokeInfo.getInvokeUniqueKey());
+		invokeParam.setInvokeUniqueKey(invokeInfo.getTransactionId());
 
 		// 调用父结点id等于当前结点id
-		invokeParam.setParentId(invokeInfo.getCurrentId());
+		invokeParam.setParentId(invokeInfo.getCurrentSpanId());
 
 		// 调用序列,下个被调用结点的id=［父结点id］＋［.］+［调用序列］
 		invokeParam.setInvokeSeq(invokeInfo.getCurrentInvokeSeq().getAndIncrement());

@@ -31,5 +31,13 @@
 			<artifactId>javassist</artifactId>
 			<version>3.20.0-GA</version>
 		</dependency>
+		
+		
+		 <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <scope>provided</scope>
+        </dependency>
+		
 	</dependencies>
 </project>
