@@ -9,12 +9,19 @@ package com.z.monit.bootstrap.core;
 public interface InvokeOperInf {
 
 	/**
-	 * 被调用者获取当前调用信息，如果没有则创建一个调用信息存储在当前线程中
+	 * 获取当前线程中的调用信息
+	 * 
+	 * @return
+	 */
+	public InvokeInfo getInvokerInfoCurThread();
+
+	/**
+	 * 获取当前线程中的调用信息，如果没有则创建一个调用信息存储在当前线程中
 	 * 
 	 * @param invokeParam
 	 * @return
 	 */
-	public InvokeInfo getInvokerInfoCurThreadForAcceptor(final InvokeParam invokeParam);
+	public InvokeInfo getOrCreateInvokerInfoCurThread(final InvokeParam invokeParam);
 
 	/**
 	 * 构建调用参数

@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class InvokeParam implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String invokeUniqueKey;
+
+	private String transactionId;
 
 	/**
 	 * 父id,即调用者
@@ -23,13 +23,13 @@ public class InvokeParam implements Serializable {
 	 * 业务唯一值
 	 */
 	private String bizUniqueKey;
-
-	public String getInvokeUniqueKey() {
-		return invokeUniqueKey;
+	
+	public String getTransactionId() {
+		return transactionId;
 	}
 
-	public void setInvokeUniqueKey(String invokeUniqueKey) {
-		this.invokeUniqueKey = invokeUniqueKey;
+	public void setTransactionId(String transactionId) {
+		this.transactionId = transactionId;
 	}
 
 	public String getParentId() {

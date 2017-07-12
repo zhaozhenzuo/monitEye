@@ -9,13 +9,13 @@ public class InvokeOperImpl implements InvokeOperInf {
 
 	private static final String ROOT_ID = "-1";
 
-	public InvokeInfo getInvokerInfoCurThreadForAcceptor(InvokeParam invokeParam) {
+	public InvokeInfo getOrCreateInvokerInfoCurThread(InvokeParam invokeParam) {
 		InvokeInfo invokeInfo = invokeInfoStore.get();
 		if (invokeInfo != null) {
 			return invokeInfo;
 		}
 
-		String invokeUniqueKey = invokeParam != null ? invokeParam.getInvokeUniqueKey() : null;
+		String invokeUniqueKey = invokeParam != null ? invokeParam.getTransactionId() : null;
 		String parentId = invokeParam != null ? invokeParam.getParentId() : null;
 		Integer invokeSeq = invokeParam != null ? invokeParam.getInvokeSeq() : null;
 
@@ -60,7 +60,7 @@ public class InvokeOperImpl implements InvokeOperInf {
 		InvokeParam invokeParam = new InvokeParam();
 
 		// 调用链id
-		invokeParam.setInvokeUniqueKey(invokeInfo.getTransactionId());
+		invokeParam.setTransactionId(invokeInfo.getTransactionId());
 
 		// 调用父结点id等于当前结点id
 		invokeParam.setParentId(invokeInfo.getCurrentSpanId());
@@ -75,6 +75,10 @@ public class InvokeOperImpl implements InvokeOperInf {
 
 	private String generateUniqueKey() {
 		return UUID.randomUUID().toString().substring(0, 32);
+	}
+
+	public InvokeInfo getInvokerInfoCurThread() {
+		return invokeInfoStore.get();
 	}
 
 }
