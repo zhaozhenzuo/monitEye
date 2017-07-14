@@ -8,20 +8,16 @@
 		<artifactId>monit</artifactId>
 		<version>1.0</version>
 	</parent>
-	<artifactId>bootstrap</artifactId>
-	<name>bootstrap</name>
-	<url>http://maven.apache.org</url>
+	<artifactId>monit-core</artifactId>
+	<name>monit-core</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-
 		<dependency>
-			<groupId>com.z.monit</groupId>
-			<artifactId>bootstrap-core</artifactId>
-			<version>1.0</version>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 		</dependency>
-
 		<!-- Logging depedencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -37,29 +33,4 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.2</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<!--change addClasspath to true if daks is desktop version -->
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>libs/</classpathPrefix>
-						</manifest>
-						<manifestEntries>
-							<Premain-Class>
-								com.z.monit.bootstrap.BootStrap
-							</Premain-Class>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>

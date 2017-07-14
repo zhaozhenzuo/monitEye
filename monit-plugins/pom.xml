@@ -19,7 +19,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.z.monit</groupId>
-			<artifactId>bootstrap-core</artifactId>
+			<artifactId>monit-core</artifactId>
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
