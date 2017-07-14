@@ -47,6 +47,8 @@ public class InvokeEvent implements Serializable {
 
 	private String methodName;
 
+	private String nextSpanId;
+
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -143,12 +145,21 @@ public class InvokeEvent implements Serializable {
 		this.methodName = methodName;
 	}
 
+	public String getNextSpanId() {
+		return nextSpanId;
+	}
+
+	public void setNextSpanId(String nextSpanId) {
+		this.nextSpanId = nextSpanId;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder buffer = new StringBuilder(128);
 		buffer.append("transactionId:" + transactionId);
 		buffer.append(",parentId:" + parentId);
 		buffer.append(",spanId:" + curSpanId);
+		buffer.append(",nextSpanId:" + nextSpanId);
 		buffer.append(",interfaceName:" + interfaceName);
 		buffer.append(",methodName:" + methodName);
 		buffer.append(",role:" + role);

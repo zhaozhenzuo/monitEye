@@ -12,11 +12,16 @@ public class InvokeParam implements Serializable {
 	 * 父id,即调用者，由调用者生成，作为被调用者的parentId
 	 */
 	private String parentId;
-	
+
 	/**
 	 * 业务唯一值
 	 */
 	private String bizUniqueKey;
+
+	/**
+	 * 当前spanId
+	 */
+	private String spanId;
 
 	public String getTransactionId() {
 		return transactionId;
@@ -40,6 +45,14 @@ public class InvokeParam implements Serializable {
 
 	public void setBizUniqueKey(String bizUniqueKey) {
 		this.bizUniqueKey = bizUniqueKey;
+	}
+
+	public String getSpanId() {
+		return spanId;
+	}
+
+	public void setSpanId(String spanId) {
+		this.spanId = spanId;
 	}
 
 }

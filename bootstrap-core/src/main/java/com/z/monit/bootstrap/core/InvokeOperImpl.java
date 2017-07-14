@@ -11,34 +11,31 @@ public class InvokeOperImpl implements InvokeOperInf {
 
 	private static final String ROOT_ID = "-1";
 
-	private static final int START_LEVEL_NUM = 0;
-
 	public InvokeInfo getOrCreateInvokerInfoCurThread(InvokeParam invokeParam) {
 		InvokeInfo invokeInfo = invokeInfoStore.get();
 		if (invokeInfo != null) {
 			return invokeInfo;
 		}
 
-		String invokeUniqueKey = invokeParam != null ? invokeParam.getTransactionId() : null;
+		String transactionId = invokeParam != null ? invokeParam.getTransactionId() : null;
 		String parentId = invokeParam != null ? invokeParam.getParentId() : null;
+		String spanId = invokeParam.getSpanId() != null ? invokeParam.getSpanId() : null;
 
-		if (invokeUniqueKey == null) {
-			invokeUniqueKey = this.generateUniqueKey();
+		if (transactionId == null) {
+			transactionId = this.generateUniqueKey();
 		}
 
 		if (parentId == null) {
 			parentId = ROOT_ID;
 		}
 
-		String currentId;
-		if (ROOT_ID.equals(parentId)) {
+		String currentId = spanId;
+		if (currentId == null) {
 			currentId = "0";
-		} else {
-			currentId = parentId + CodeInfo.NODE_SPLIT + START_LEVEL_NUM;
 		}
 
 		InvokeInfo invokeInfoNew = new InvokeInfo();
-		invokeInfoNew.setTransactionId(invokeUniqueKey);
+		invokeInfoNew.setTransactionId(transactionId);
 		invokeInfoNew.setParentSpanId(parentId);
 		invokeInfoNew.setCurrentSpanId(currentId);
 
@@ -83,7 +80,7 @@ public class InvokeOperImpl implements InvokeOperInf {
 	}
 
 	/**
-	 * 增加当前span，用于新的调用事件
+	 * 增加当前span，用于新的调用事件,作为下个结点的spanId
 	 */
 	public String nextSpanId() {
 		InvokeInfo invokeInfo = invokeInfoStore.get();
@@ -91,10 +88,8 @@ public class InvokeOperImpl implements InvokeOperInf {
 			throw new RuntimeException("invokerInfo is null");
 		}
 
-		String res = increaseLastLevel(invokeInfo.getCurrentSpanId());
-		invokeInfo.setCurrentSpanId(res);
-
-		return res;
+		int invokeSeq = invokeInfo.getCurrentInvokeSeq().incrementAndGet();
+		return invokeInfo.getCurrentSpanId() + MonitConstants.LEVEL_SPLIT + invokeSeq;
 	}
 
 	public static void main(String[] args) {

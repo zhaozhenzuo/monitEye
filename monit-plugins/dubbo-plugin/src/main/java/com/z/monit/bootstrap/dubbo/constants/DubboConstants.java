@@ -12,8 +12,8 @@ public interface DubboConstants {
 	public static final String PARENT_SPAN_ID = "_DUBBO_PARENT_SPAN_ID";
 
 	/**
-	 * 服务消费方给服务提供方调用序列,服务提供方id＝PARENT_SPAN_ID+"."+INVOKE_SEQ_FOR_ACCEPTOR
+	 * 服务消费方给服务提供方的spanId
 	 */
-	public static final String INVOKE_SEQ_FOR_ACCEPTOR = "_DUBBO_INVOKE_SEQ_FOR_ACCEPTOR";
+	public static final String SPAN_ID = "_DUBBO_INVOKE_SPAN_ID";
 
 }

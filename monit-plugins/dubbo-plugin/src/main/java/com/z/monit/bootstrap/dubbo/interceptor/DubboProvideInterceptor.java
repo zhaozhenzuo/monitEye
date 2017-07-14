@@ -7,7 +7,6 @@ import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.RpcInvocation;
 import com.z.monit.bootstrap.core.InvokeEvent;
-import com.z.monit.bootstrap.core.InvokeInfo;
 import com.z.monit.bootstrap.core.InvokeOperFactory;
 import com.z.monit.bootstrap.core.InvokeOperInf;
 import com.z.monit.bootstrap.core.InvokeParam;
@@ -30,13 +29,15 @@ public class DubboProvideInterceptor implements Interceptor {
 
 			String transactionId = invocation.getAttachment(DubboConstants.TRANSACTION_ID);
 			String parentId = invocation.getAttachment(DubboConstants.PARENT_SPAN_ID);
+			String spanId = invocation.getAttachment(DubboConstants.SPAN_ID);
 
 			InvokeParam invokeParam = new InvokeParam();
 			invokeParam.setTransactionId(transactionId);
 			invokeParam.setParentId(parentId);
+			invokeParam.setSpanId(spanId);
 
 			InvokeOperInf invokeOperInf = InvokeOperFactory.getInvokeOper();
-			InvokeInfo invokeInfo=invokeOperInf.getOrCreateInvokerInfoCurThread(invokeParam);
+			invokeOperInf.getOrCreateInvokerInfoCurThread(invokeParam);
 
 			/**
 			 * 将当前被调用信息放入栈中
@@ -44,12 +45,13 @@ public class DubboProvideInterceptor implements Interceptor {
 			InvokeEvent invokeEvent = new InvokeEvent();
 			invokeEvent.setBeginTime(System.currentTimeMillis());
 			invokeEvent.setTransactionId(transactionId);
-			invokeEvent.setCurSpanId(invokeInfo.getCurrentSpanId());
+			invokeEvent.setCurSpanId(spanId);
 			invokeEvent.setInterfaceName(invoker.getInterface().getName());
 			invokeEvent.setRole(MonitInvokeEventRole.ACCEPTOR);
 			invokeEvent.setInvokerIp(RpcContext.getContext().getRemoteHost());
 			invokeEvent.setParentId(parentId);
 			invokeEvent.setMethodName(invocation.getMethodName());
+			invokeEvent.setInterfaceName(invoker.getInterface().getName());
 
 			InvokeEventStore.pushInvokeEvent(invokeEvent);
 

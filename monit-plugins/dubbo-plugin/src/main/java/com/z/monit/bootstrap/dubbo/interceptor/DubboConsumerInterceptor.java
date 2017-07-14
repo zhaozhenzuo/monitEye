@@ -56,18 +56,20 @@ public class DubboConsumerInterceptor implements Interceptor {
 			Object[] params = (Object[]) args;
 			RpcInvocation invocation = (RpcInvocation) params[1];
 			invocation.setAttachment(DubboConstants.TRANSACTION_ID, transactionId);
-			invocation.setAttachment(DubboConstants.PARENT_SPAN_ID, nextSpanId);
+			invocation.setAttachment(DubboConstants.PARENT_SPAN_ID, invokeInfo.getCurrentSpanId());
+			invocation.setAttachment(DubboConstants.SPAN_ID, nextSpanId);
 
 			/**
-			 * 3.记录新的调用事件信息
+			 * 3.记录新的调用事件信息,新事件的spanId为[nextSpanId]
 			 */
 			InvokeEvent invokeEvent = new InvokeEvent();
 			invokeEvent.setBeginTime(System.currentTimeMillis());
 			invokeEvent.setTransactionId(transactionId);
-			invokeEvent.setCurSpanId(nextSpanId);
+			invokeEvent.setCurSpanId(invokeInfo.getCurrentSpanId());
 			invokeEvent.setRole(MonitInvokeEventRole.INVOKER);
 			invokeEvent.setInvokerIp(RpcContext.getContext().getRemoteHost());
 			invokeEvent.setParentId(invokeInfo.getParentSpanId());
+			invokeEvent.setNextSpanId(nextSpanId);
 
 			Invoker invoker = (Invoker) params[0];
 			invokeEvent.setInterfaceName(invoker.getInterface().getName());
