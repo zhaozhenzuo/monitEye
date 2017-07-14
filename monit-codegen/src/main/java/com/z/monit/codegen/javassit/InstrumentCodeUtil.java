@@ -1,5 +1,7 @@
 package com.z.monit.codegen.javassit;
 
+import java.io.IOException;
+
 import com.z.monit.bootstrap.core.agent.DefaultAgentParam;
 import com.z.monit.bootstrap.core.constants.MonitConstants;
 import com.z.monit.bootstrap.core.intercept.Interceptor;
@@ -17,6 +19,11 @@ public class InstrumentCodeUtil {
 		ClassPool classPool = ClassPool.getDefault();
 		classPool.appendClassPath("/Users/zhaozhenzuo/Documents/monit/*");
 
+	}
+	
+	public static byte[] ctClassToByteArr(CtClass ctClass) throws IOException, CannotCompileException{
+		ctClass.detach();
+		return ctClass.toBytecode();
 	}
 
 	/**

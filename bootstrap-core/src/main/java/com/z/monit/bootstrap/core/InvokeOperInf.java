@@ -25,13 +25,16 @@ public interface InvokeOperInf {
 
 	/**
 	 * 构建调用参数<br/>
-	 * 注：方法会增加调用序列InvokeSeq
 	 * 
+	 * @param transactionId
+	 *            调用链id
+	 * @param parentSpanId
+	 *            作为被调用者的父类id
 	 * @param bizUniqueKey
-	 *            业务唯一值
 	 * @return
 	 */
-	public InvokeParam composeInvokeParamAndIncreaseCurInvokeSeqForInvoker(String bizUniqueKey);
+	public InvokeParam composeInvokeParamAndIncreaseCurInvokeSeqForInvoker(String transactionId, String parentSpanId,
+			String bizUniqueKey);
 
 	/**
 	 * 清除当前线程调用信息
@@ -39,13 +42,8 @@ public interface InvokeOperInf {
 	public void clearInvokerInfoCurThread();
 
 	/**
-	 * 增加当前调用序列
+	 * 增加当前curSpanId并返回<br/>
 	 */
-	public void increaseInvokeSeqCurThread();
-
-	/**
-	 * 重新设置当前curSpanId<br/>
-	 */
-	public void increaseCurSpanIdCurThread();
+	public String nextSpanId();
 
 }

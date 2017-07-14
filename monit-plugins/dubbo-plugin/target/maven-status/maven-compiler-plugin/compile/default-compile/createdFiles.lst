@@ -1,7 +1,0 @@
-com/z/monit/bootstrap/dubbo/plugin/DubboPlugin.class
-com/z/monit/bootstrap/dubbo/interceptor/DubboConsumerInterceptor.class
-com/z/monit/bootstrap/dubbo/plugin/DubboPlugin$1.class
-com/z/monit/bootstrap/dubbo/plugin/TestClass.class
-com/z/monit/bootstrap/dubbo/plugin/DubboPlugin$2.class
-com/z/monit/bootstrap/dubbo/constants/DubboConstants.class
-com/z/monit/bootstrap/dubbo/interceptor/DubboProvideInterceptor.class

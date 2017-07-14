@@ -11,6 +11,8 @@ public class InvokeOperImpl implements InvokeOperInf {
 
 	private static final String ROOT_ID = "-1";
 
+	private static final int START_LEVEL_NUM = 0;
+
 	public InvokeInfo getOrCreateInvokerInfoCurThread(InvokeParam invokeParam) {
 		InvokeInfo invokeInfo = invokeInfoStore.get();
 		if (invokeInfo != null) {
@@ -19,7 +21,6 @@ public class InvokeOperImpl implements InvokeOperInf {
 
 		String invokeUniqueKey = invokeParam != null ? invokeParam.getTransactionId() : null;
 		String parentId = invokeParam != null ? invokeParam.getParentId() : null;
-		Integer invokeSeq = invokeParam != null ? invokeParam.getInvokeSeq() : null;
 
 		if (invokeUniqueKey == null) {
 			invokeUniqueKey = this.generateUniqueKey();
@@ -29,15 +30,11 @@ public class InvokeOperImpl implements InvokeOperInf {
 			parentId = ROOT_ID;
 		}
 
-		if (invokeSeq == null) {
-			invokeSeq = 0;
-		}
-
 		String currentId;
 		if (ROOT_ID.equals(parentId)) {
 			currentId = "0";
 		} else {
-			currentId = parentId + CodeInfo.NODE_SPLIT + invokeSeq;
+			currentId = parentId + CodeInfo.NODE_SPLIT + START_LEVEL_NUM;
 		}
 
 		InvokeInfo invokeInfoNew = new InvokeInfo();
@@ -53,7 +50,8 @@ public class InvokeOperImpl implements InvokeOperInf {
 		return invokeInfoNew;
 	}
 
-	public InvokeParam composeInvokeParamAndIncreaseCurInvokeSeqForInvoker(String bizUniqueKey) {
+	public InvokeParam composeInvokeParamAndIncreaseCurInvokeSeqForInvoker(String transactionId, String nextSpanId,
+			String bizUniqueKey) {
 		InvokeInfo invokeInfo = invokeInfoStore.get();
 		if (invokeInfo == null) {
 			throw new IllegalArgumentException("not found invokeInfo");
@@ -62,13 +60,10 @@ public class InvokeOperImpl implements InvokeOperInf {
 		InvokeParam invokeParam = new InvokeParam();
 
 		// 调用链id
-		invokeParam.setTransactionId(invokeInfo.getTransactionId());
+		invokeParam.setTransactionId(transactionId);
 
 		// 调用父结点id等于当前结点id
-		invokeParam.setParentId(invokeInfo.getCurrentSpanId());
-
-		// 调用序列,下个被调用结点的id=［父结点id］＋［.］+［调用序列］
-		invokeParam.setInvokeSeq(invokeInfo.getCurrentInvokeSeq().getAndIncrement());
+		invokeParam.setParentId(nextSpanId);
 
 		invokeParam.setBizUniqueKey(bizUniqueKey);
 
@@ -87,32 +82,25 @@ public class InvokeOperImpl implements InvokeOperInf {
 		invokeInfoStore.remove();
 	}
 
-	public void increaseInvokeSeqCurThread() {
+	/**
+	 * 增加当前span，用于新的调用事件
+	 */
+	public String nextSpanId() {
 		InvokeInfo invokeInfo = invokeInfoStore.get();
 		if (invokeInfo == null) {
 			throw new RuntimeException("invokerInfo is null");
 		}
 
-		invokeInfo.getCurrentInvokeSeq().incrementAndGet();
+		String res = increaseLastLevel(invokeInfo.getCurrentSpanId());
+		invokeInfo.setCurrentSpanId(res);
 
-		return;
+		return res;
 	}
 
 	public static void main(String[] args) {
-		String res = "0.1.1";
+		String res = "1";
 
 		System.out.println(increaseLastLevel(res));
-	}
-
-	public void increaseCurSpanIdCurThread() {
-		InvokeInfo invokeInfo = invokeInfoStore.get();
-		if (invokeInfo == null) {
-			return;
-		}
-
-		String curSpanId = invokeInfo.getCurrentSpanId();
-		String res = increaseLastLevel(curSpanId);
-		invokeInfo.setCurrentSpanId(res);
 	}
 
 	private static String increaseLastLevel(String curSpanId) {
@@ -123,7 +111,7 @@ public class InvokeOperImpl implements InvokeOperInf {
 		int lastIndex = curSpanId.lastIndexOf(MonitConstants.LEVEL_SPLIT);
 		if (lastIndex >= 0) {
 			int lastLevel = Integer.valueOf(curSpanId.substring(lastIndex + 1)) + 1;
-			curSpanId = curSpanId.substring(0, lastIndex)+MonitConstants.LEVEL_SPLIT+lastLevel;
+			curSpanId = curSpanId.substring(0, lastIndex) + MonitConstants.LEVEL_SPLIT + lastLevel;
 		} else {
 			int temp = Integer.valueOf(curSpanId);
 			curSpanId = String.valueOf(temp + 1);

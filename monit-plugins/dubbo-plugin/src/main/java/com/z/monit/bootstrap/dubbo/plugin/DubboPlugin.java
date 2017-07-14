@@ -20,7 +20,7 @@ public class DubboPlugin implements MonitPlugin {
 		Map<String, TransformCallback> transformCallBackMap = new HashMap<String, TransformCallback>();
 
 		final String providerClassName = "com.alibaba.dubbo.rpc.proxy.AbstractProxyInvoker";
-		final String consumerClassName = "com.alibaba.dubbo.rpc.filter.ConsumerContextFilter";
+		final String consumerClassName = "com.alibaba.dubbo.rpc.protocol.dubbo.filter.FutureFilter";
 
 		/**
 		 * 注册服务提供方织入逻辑
@@ -34,7 +34,7 @@ public class DubboPlugin implements MonitPlugin {
 						new DubboProvideInterceptor(), "invoke", com.alibaba.dubbo.rpc.Invocation.class);
 
 				try {
-					return ctClass.toBytecode();
+					return InstrumentCodeUtil.ctClassToByteArr(ctClass);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (CannotCompileException e) {

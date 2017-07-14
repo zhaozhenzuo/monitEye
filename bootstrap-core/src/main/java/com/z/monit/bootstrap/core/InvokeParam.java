@@ -9,21 +9,15 @@ public class InvokeParam implements Serializable {
 	private String transactionId;
 
 	/**
-	 * 父id,即调用者
+	 * 父id,即调用者，由调用者生成，作为被调用者的parentId
 	 */
 	private String parentId;
-
-	/**
-	 * 调用序列号<br/>
-	 * 接收者调用id＝parentId+[.]+invokeSeq
-	 */
-	private Integer invokeSeq;
-
+	
 	/**
 	 * 业务唯一值
 	 */
 	private String bizUniqueKey;
-	
+
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -38,14 +32,6 @@ public class InvokeParam implements Serializable {
 
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
-	}
-
-	public Integer getInvokeSeq() {
-		return invokeSeq;
-	}
-
-	public void setInvokeSeq(Integer invokeSeq) {
-		this.invokeSeq = invokeSeq;
 	}
 
 	public String getBizUniqueKey() {

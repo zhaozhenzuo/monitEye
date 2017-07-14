@@ -3,6 +3,7 @@ package com.z.monit.bootstrap.dubbo.interceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.RpcInvocation;
 import com.z.monit.bootstrap.core.InvokeEvent;
@@ -43,37 +44,33 @@ public class DubboConsumerInterceptor implements Interceptor {
 			}
 
 			/**
-			 * 1.组装调用下个服务的信息
+			 * 1.组装调用下个服务的信息<br/>
+			 * 注：每次调用新方法表明一个调用事件需要生成一个新的spanId
 			 */
-			InvokeParam invokeParamToAcceptor = invokeOperInf
-					.composeInvokeParamAndIncreaseCurInvokeSeqForInvoker("2017000001");
+			String transactionId = invokeInfo.getTransactionId();
+			String nextSpanId = invokeOperInf.nextSpanId();
 
 			/**
 			 * 2.将此信息传送给服务提供方
 			 */
 			Object[] params = (Object[]) args;
-
-			String transactionId = invokeParamToAcceptor.getTransactionId();
-			String parentId = invokeParamToAcceptor.getParentId();
-
 			RpcInvocation invocation = (RpcInvocation) params[1];
 			invocation.setAttachment(DubboConstants.TRANSACTION_ID, transactionId);
-			invocation.setAttachment(DubboConstants.INVOKE_SEQ_FOR_ACCEPTOR,
-					invokeParamToAcceptor.getInvokeSeq().toString());
-			invocation.setAttachment(DubboConstants.PARENT_SPAN_ID, parentId);
+			invocation.setAttachment(DubboConstants.PARENT_SPAN_ID, nextSpanId);
 
 			/**
-			 * 3.记录信息
+			 * 3.记录新的调用事件信息
 			 */
 			InvokeEvent invokeEvent = new InvokeEvent();
 			invokeEvent.setBeginTime(System.currentTimeMillis());
 			invokeEvent.setTransactionId(transactionId);
-			invokeEvent.setCurSpanId(invokeInfo.getCurrentSpanId());
+			invokeEvent.setCurSpanId(nextSpanId);
 			invokeEvent.setRole(MonitInvokeEventRole.INVOKER);
 			invokeEvent.setInvokerIp(RpcContext.getContext().getRemoteHost());
 			invokeEvent.setParentId(invokeInfo.getParentSpanId());
-			invokeEvent.setInvokeSeq(invokeInfo.getCurrentInvokeSeq().get() - 1);
-			// invokeEvent.setAcceptorInterfaceName(invoker.getInterface().getName());
+
+			Invoker invoker = (Invoker) params[0];
+			invokeEvent.setInterfaceName(invoker.getInterface().getName());
 			invokeEvent.setMethodName(invocation.getMethodName());
 
 			InvokeEventStore.pushInvokeEvent(invokeEvent);

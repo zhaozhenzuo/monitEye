@@ -47,8 +47,6 @@ public class InvokeEvent implements Serializable {
 
 	private String methodName;
 
-	private Integer invokeSeq;
-
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -145,21 +143,12 @@ public class InvokeEvent implements Serializable {
 		this.methodName = methodName;
 	}
 
-	public Integer getInvokeSeq() {
-		return invokeSeq;
-	}
-
-	public void setInvokeSeq(Integer invokeSeq) {
-		this.invokeSeq = invokeSeq;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder buffer = new StringBuilder(128);
 		buffer.append("transactionId:" + transactionId);
 		buffer.append(",parentId:" + parentId);
 		buffer.append(",spanId:" + curSpanId);
-		buffer.append(",invokeSeq:" + invokeSeq);
 		buffer.append(",interfaceName:" + interfaceName);
 		buffer.append(",methodName:" + methodName);
 		buffer.append(",role:" + role);
