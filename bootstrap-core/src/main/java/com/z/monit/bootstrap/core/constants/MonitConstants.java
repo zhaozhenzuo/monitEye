@@ -21,5 +21,7 @@ public class MonitConstants {
 	 * plugin目录
 	 */
 	public static final String pluginDir = "pluginDir";
+	
+	public static final String LEVEL_SPLIT=".";
 
 }

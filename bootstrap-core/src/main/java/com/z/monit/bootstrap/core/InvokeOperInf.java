@@ -24,12 +24,28 @@ public interface InvokeOperInf {
 	public InvokeInfo getOrCreateInvokerInfoCurThread(final InvokeParam invokeParam);
 
 	/**
-	 * 构建调用参数
+	 * 构建调用参数<br/>
+	 * 注：方法会增加调用序列InvokeSeq
 	 * 
 	 * @param bizUniqueKey
 	 *            业务唯一值
 	 * @return
 	 */
 	public InvokeParam composeInvokeParamAndIncreaseCurInvokeSeqForInvoker(String bizUniqueKey);
+
+	/**
+	 * 清除当前线程调用信息
+	 */
+	public void clearInvokerInfoCurThread();
+
+	/**
+	 * 增加当前调用序列
+	 */
+	public void increaseInvokeSeqCurThread();
+
+	/**
+	 * 重新设置当前curSpanId<br/>
+	 */
+	public void increaseCurSpanIdCurThread();
 
 }

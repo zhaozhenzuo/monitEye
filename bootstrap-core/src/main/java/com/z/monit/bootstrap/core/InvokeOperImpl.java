@@ -3,6 +3,8 @@ package com.z.monit.bootstrap.core;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.z.monit.bootstrap.core.constants.MonitConstants;
+
 public class InvokeOperImpl implements InvokeOperInf {
 
 	private static final ThreadLocal<InvokeInfo> invokeInfoStore = new ThreadLocal<InvokeInfo>();
@@ -79,6 +81,55 @@ public class InvokeOperImpl implements InvokeOperInf {
 
 	public InvokeInfo getInvokerInfoCurThread() {
 		return invokeInfoStore.get();
+	}
+
+	public void clearInvokerInfoCurThread() {
+		invokeInfoStore.remove();
+	}
+
+	public void increaseInvokeSeqCurThread() {
+		InvokeInfo invokeInfo = invokeInfoStore.get();
+		if (invokeInfo == null) {
+			throw new RuntimeException("invokerInfo is null");
+		}
+
+		invokeInfo.getCurrentInvokeSeq().incrementAndGet();
+
+		return;
+	}
+
+	public static void main(String[] args) {
+		String res = "0.1.1";
+
+		System.out.println(increaseLastLevel(res));
+	}
+
+	public void increaseCurSpanIdCurThread() {
+		InvokeInfo invokeInfo = invokeInfoStore.get();
+		if (invokeInfo == null) {
+			return;
+		}
+
+		String curSpanId = invokeInfo.getCurrentSpanId();
+		String res = increaseLastLevel(curSpanId);
+		invokeInfo.setCurrentSpanId(res);
+	}
+
+	private static String increaseLastLevel(String curSpanId) {
+		if (curSpanId == null) {
+			return curSpanId;
+		}
+
+		int lastIndex = curSpanId.lastIndexOf(MonitConstants.LEVEL_SPLIT);
+		if (lastIndex >= 0) {
+			int lastLevel = Integer.valueOf(curSpanId.substring(lastIndex + 1)) + 1;
+			curSpanId = curSpanId.substring(0, lastIndex)+MonitConstants.LEVEL_SPLIT+lastLevel;
+		} else {
+			int temp = Integer.valueOf(curSpanId);
+			curSpanId = String.valueOf(temp + 1);
+		}
+
+		return curSpanId;
 	}
 
 }

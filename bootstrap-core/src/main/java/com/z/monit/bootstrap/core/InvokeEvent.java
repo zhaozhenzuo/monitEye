@@ -23,14 +23,9 @@ public class InvokeEvent implements Serializable {
 	private Integer role;
 
 	/**
-	 * 服务调用方接口名称
+	 * 接口名
 	 */
-	private String invokerInterfaceName;
-
-	/**
-	 * 服务被调用方接口名称
-	 */
-	private String acceptorInterfaceName;
+	private String interfaceName;
 
 	/**
 	 * 调用结果状态<br/>
@@ -42,6 +37,17 @@ public class InvokeEvent implements Serializable {
 	 * 错误信息
 	 */
 	private String errmsg;
+
+	/**
+	 * 调用方ip
+	 */
+	private String invokerIp;
+
+	private String parentId;
+
+	private String methodName;
+
+	private Integer invokeSeq;
 
 	public String getTransactionId() {
 		return transactionId;
@@ -91,20 +97,12 @@ public class InvokeEvent implements Serializable {
 		this.role = role;
 	}
 
-	public String getInvokerInterfaceName() {
-		return invokerInterfaceName;
+	public String getInterfaceName() {
+		return interfaceName;
 	}
 
-	public void setInvokerInterfaceName(String invokerInterfaceName) {
-		this.invokerInterfaceName = invokerInterfaceName;
-	}
-
-	public String getAcceptorInterfaceName() {
-		return acceptorInterfaceName;
-	}
-
-	public void setAcceptorInterfaceName(String acceptorInterfaceName) {
-		this.acceptorInterfaceName = acceptorInterfaceName;
+	public void setInterfaceName(String interfaceName) {
+		this.interfaceName = interfaceName;
 	}
 
 	public Integer getStatus() {
@@ -122,5 +120,54 @@ public class InvokeEvent implements Serializable {
 	public void setErrmsg(String errmsg) {
 		this.errmsg = errmsg;
 	}
-	
+
+	public String getInvokerIp() {
+		return invokerIp;
+	}
+
+	public void setInvokerIp(String invokerIp) {
+		this.invokerIp = invokerIp;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getMethodName() {
+		return methodName;
+	}
+
+	public void setMethodName(String methodName) {
+		this.methodName = methodName;
+	}
+
+	public Integer getInvokeSeq() {
+		return invokeSeq;
+	}
+
+	public void setInvokeSeq(Integer invokeSeq) {
+		this.invokeSeq = invokeSeq;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder buffer = new StringBuilder(128);
+		buffer.append("transactionId:" + transactionId);
+		buffer.append(",parentId:" + parentId);
+		buffer.append(",spanId:" + curSpanId);
+		buffer.append(",invokeSeq:" + invokeSeq);
+		buffer.append(",interfaceName:" + interfaceName);
+		buffer.append(",methodName:" + methodName);
+		buffer.append(",role:" + role);
+		buffer.append(",invokerIp:" + invokerIp);
+		buffer.append(",beginTime:" + beginTime);
+		buffer.append(",cost:" + cost);
+
+		return buffer.toString();
+	}
+
 }

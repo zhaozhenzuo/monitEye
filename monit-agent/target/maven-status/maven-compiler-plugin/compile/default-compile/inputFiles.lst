@@ -1,11 +1,8 @@
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/context/DefaultAgentContext.java
-/Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/instrument/DefaultPluginInstrumentServiceImpl.java
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/instrument/DefaultClassFileTransformDispatcher.java
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/instrument/PluginClassInjectLoader.java
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/instrument/DefaultTransformCallbackRegister.java
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/instrument/JavaSsistClassPoolServiceImpl.java
-/Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/instrument/DefaultInstrumentMethodImpl.java
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/DefaultAgent.java
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/instrument/ClassPoolService.java
-/Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/instrument/DefaultInstrumentClass.java
 /Users/zhaozhenzuo/Documents/git/monitEye/monit-agent/src/main/java/com/z/monit/agent/util/JavaAssistUtils.java

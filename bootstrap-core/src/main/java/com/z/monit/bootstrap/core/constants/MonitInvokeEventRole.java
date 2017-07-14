@@ -10,6 +10,6 @@ public interface MonitInvokeEventRole {
 	/**
 	 * 服务被调用方，即服务提供方
 	 */
-	public static final int ACCEPTOR = 1;
+	public static final int ACCEPTOR = 2;
 
 }

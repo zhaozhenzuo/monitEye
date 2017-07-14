@@ -2,9 +2,6 @@ package com.z.monit.bootstrap.core.context;
 
 import java.util.Stack;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.z.monit.bootstrap.core.InvokeEvent;
 
 /**
@@ -15,8 +12,6 @@ import com.z.monit.bootstrap.core.InvokeEvent;
  */
 public class InvokeEventStore {
 
-	private static final Logger logger = LoggerFactory.getLogger(InvokeEventStore.class);
-
 	private static final ThreadLocal<Stack<InvokeEvent>> invokeEventStore = new ThreadLocal<Stack<InvokeEvent>>();
 
 	/**
@@ -26,18 +21,38 @@ public class InvokeEventStore {
 	 * @param invokeEvent
 	 */
 	public static void pushInvokeEvent(final InvokeEvent invokeEvent) {
+		if(invokeEventStore == null){
+			return;
+		}
+		
 		Stack<InvokeEvent> stack = invokeEventStore.get();
 		if (stack == null) {
 			stack = new Stack<InvokeEvent>();
+			invokeEventStore.set(stack);
 		}
 
 		stack.push(invokeEvent);
 	}
+	
+	public static void clearInvokeEventForCurrentThread(){
+		if(invokeEventStore==null){
+			return;
+		}
+		
+		Stack<InvokeEvent> stack =invokeEventStore.get();
+		if(stack == null){
+			return;
+		}
+		stack.clear();
+	}
 
 	public static InvokeEvent popInvokeEvent() {
+		if(invokeEventStore == null){
+			return null;
+		}
+		
 		Stack<InvokeEvent> stack = invokeEventStore.get();
 		if (stack == null) {
-			logger.error(">popInvokeEvent err,no stack found");
 			return null;
 		}
 

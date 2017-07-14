@@ -10,11 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.z.monit.agent.context.DefaultAgentContext;
-import com.z.monit.agent.instrument.ClassPoolService;
 import com.z.monit.agent.instrument.DefaultClassFileTransformDispatcher;
-import com.z.monit.agent.instrument.DefaultPluginInstrumentServiceImpl;
 import com.z.monit.agent.instrument.DefaultTransformCallbackRegister;
-import com.z.monit.agent.instrument.JavaSsistClassPoolServiceImpl;
 import com.z.monit.bootstrap.core.Agent;
 import com.z.monit.bootstrap.core.AgentInfo;
 import com.z.monit.bootstrap.core.agent.AgentParam;
@@ -26,11 +23,6 @@ import com.z.monit.bootstrap.core.instrument.MonitPlugin;
 import com.z.monit.bootstrap.core.instrument.PluginInstrumentService;
 import com.z.monit.bootstrap.core.instrument.TransformCallback;
 import com.z.monit.bootstrap.core.instrument.TransformCallbackRegister;
-
-import javassist.ClassClassPath;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.NotFoundException;
 
 public class DefaultAgent implements Agent {
 
@@ -114,8 +106,8 @@ public class DefaultAgent implements Agent {
 		/**
 		 * 1.实例化classPoolService,用于查找相应类的CtClass
 		 */
-		ClassPool rootClassPool = new ClassPool(true);
-		ClassPoolService<CtClass> classPoolService = new JavaSsistClassPoolServiceImpl(rootClassPool);
+//		ClassPool rootClassPool = new ClassPool(true);
+//		ClassPoolService<CtClass> classPoolService = new JavaSsistClassPoolServiceImpl(rootClassPool);
 
 		/**
 		 * 2.创建rootClassPool,放入classPoolService,
@@ -123,20 +115,20 @@ public class DefaultAgent implements Agent {
 		 * 及monit-agent能够加载的类
 		 */
 		// 增加bootstrap-core
-		try {
-			rootClassPool.appendClassPath((String) agentParam.getConfigParam().get("bootstrapCoreFullUrl"));
-		} catch (NotFoundException e) {
-			logger.error(">>no bootstrap core jar found", e);
-		}
+//		try {
+//			rootClassPool.appendClassPath((String) agentParam.getConfigParam().get("bootstrapCoreFullUrl"));
+//		} catch (NotFoundException e) {
+//			logger.error(">>no bootstrap core jar found", e);
+//		}
 
 		// 增加monit-agent jar
-		rootClassPool.appendClassPath(new ClassClassPath(this.getClass()));
+//		rootClassPool.appendClassPath(new ClassClassPath(this.getClass()));
 
 		/**
 		 * 3.实例化instrumentService<br/>
 		 * TODO,monitAgentConfig
 		 */
-		instrumentService = new DefaultPluginInstrumentServiceImpl(agentContext, classPoolService, null);
+//		instrumentService = new DefaultPluginInstrumentServiceImpl(agentContext, classPoolService, null);
 	}
 
 	/**
