@@ -40,10 +40,10 @@ public class ClassPathResolver {
 	private final Logger logger = LoggerFactory.getLogger(ClassPathResolver.class);
 
 	private static final Pattern DEFAULT_BOOTSTRAP_PATTERN = Pattern
-			.compile("bootstrap(-[0-9]+\\.[0-9]+(\\-SNAPSHOT)?)?\\.jar");
+			.compile("monit-bootstrap(-[0-9]+\\.[0-9]+(\\-SNAPSHOT)?)?\\.jar");
 
 	private static final Pattern DEFAULT_BOOTSTRAP_CORE_PATTERN = Pattern
-			.compile("bootstrap-core(-[0-9]+\\.[0-9]+(\\-SNAPSHOT)?)?\\.jar");
+			.compile("monit-core(-[0-9]+\\.[0-9]+(\\-SNAPSHOT)?)?\\.jar");
 
 	private static final Pattern PLUGIN_PATTERN = Pattern
 			.compile("[a-z]*-plugin(-[0-9]+\\.[0-9]+(\\-SNAPSHOT)?)?\\.jar");
